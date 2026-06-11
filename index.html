@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Propuesta Técnica — Ecosistema Deportivo Integral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --bg-light: #f7f8fa;
+      --bg-section: #f0f2f5;
+      --text-dark: #111318;
+      --text-mid: #4a5260;
+      --text-light: #7b8594;
+      --accent: #1a56db;
+      --accent-dark: #1340b0;
+      --accent-light: #e8effe;
+      --green: #0d7f5f;
+      --green-light: #e6f5f0;
+      --border: #e3e6ec;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 8px 28px rgba(0,0,0,0.09);
+      --shadow-lg: 0 20px 50px rgba(0,0,0,0.12);
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: 15px; color: var(--text-dark);
+      letter-spacing: -0.3px;
+    }
+    .nav-brand span { color: var(--accent); }
+    .nav-badge {
+      font-size: 11px; font-weight: 600;
+      background: var(--accent-light); color: var(--accent);
+      padding: 3px 10px; border-radius: 20px;
+      letter-spacing: 0.3px;
+    }
+    .nav-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 100px 40px 80px;
+      background: var(--white);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 55%; height: 100%;
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 50%, #f5f7ff 100%);
+      clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 0;
+    }
+    .hero-grid {
+      max-width: 1200px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 24px;
+      background: var(--accent-light); padding: 6px 14px; border-radius: 20px;
+    }
+    .hero-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(32px, 4.5vw, 52px);
+      font-weight: 900; line-height: 1.08;
+      color: var(--text-dark); letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+    .hero-title span { color: var(--accent); }
+    .hero-sub {
+      font-size: 17px; color: var(--text-mid);
+      line-height: 1.7; margin-bottom: 40px; max-width: 480px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent); color: #fff;
+      padding: 14px 28px; border-radius: var(--radius-sm);
+      font-size: 15px; font-weight: 600; text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(26,86,219,0.35);
+    }
+    .btn-primary:hover {
+      background: var(--accent-dark); transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26,86,219,0.4);
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1.5px solid var(--border); color: var(--text-mid);
+      padding: 14px 24px; border-radius: var(--radius-sm);
+      font-size: 15px; font-weight: 500; text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--border); border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--border); margin-top: 48px;
+    }
+    .stat-item {
+      background: var(--white); padding: 20px 16px; text-align: center;
+    }
+    .stat-num {
+      font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900;
+      color: var(--accent); letter-spacing: -1px; display: block;
+    }
+    .stat-label { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+
+    /* Hero Visual */
+    .hero-visual {
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .mockup-shell {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .mockup-bar {
+      background: #f0f2f5; padding: 10px 16px;
+      display: flex; align-items: center; gap: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mockup-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .mockup-dot.r { background: #ff5f57; }
+    .mockup-dot.y { background: #febc2e; }
+    .mockup-dot.g { background: #28c840; }
+    .mockup-url {
+      margin-left: 10px; flex: 1;
+      background: #e3e6ec; border-radius: 4px;
+      height: 22px; display: flex; align-items: center; padding: 0 10px;
+      font-size: 11px; color: var(--text-light);
+    }
+    .mockup-body { padding: 20px; }
+    .dash-header-row {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+    }
+    .dash-title-mock { font-weight: 700; font-size: 14px; color: var(--text-dark); }
+    .dash-pill {
+      font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px;
+      background: var(--green-light); color: var(--green);
+    }
+    .dash-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+    .dash-card-mini {
+      background: var(--bg-light); border-radius: var(--radius-sm);
+      padding: 12px; border: 1px solid var(--border);
+    }
+    .dash-card-mini .val {
+      font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800;
+      color: var(--text-dark);
+    }
+    .dash-card-mini .lbl { font-size: 10px; color: var(--text-light); margin-top: 2px; }
+    .dash-card-mini .chg { font-size: 10px; color: var(--green); font-weight: 600; margin-top: 4px; }
+    .dash-player-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px; background: var(--bg-light); border-radius: var(--radius-sm);
+      border: 1px solid var(--border); margin-bottom: 8px;
+    }
+    .dash-avatar {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: #fff;
+    }
+    .dash-player-info { flex: 1; }
+    .dash-player-name { font-size: 12px; font-weight: 600; color: var(--text-dark); }
+    .dash-player-pos { font-size: 10px; color: var(--text-light); }
+    .dash-bar-wrap { display: flex; align-items: center; gap: 6px; }
+    .dash-bar-bg { flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .dash-bar-fill { height: 100%; border-radius: 3px; }
+    .dash-bar-pct { font-size: 10px; color: var(--text-mid); font-weight: 600; }
+
+    /* Radar Mini */
+    .radar-mini-wrap {
+      background: var(--white); border-radius: var(--radius);
+      box-shadow: var(--shadow-md); border: 1px solid var(--border);
+      padding: 16px; display: flex; align-items: center; gap: 14px;
+    }
+    .radar-text { flex: 1; }
+    .radar-label { font-size: 11px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+    .radar-sub { font-size: 10px; color: var(--text-light); line-height: 1.5; }
+    .radar-skills { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+    .skill-tag {
+      font-size: 10px; padding: 2px 8px; border-radius: 20px;
+      background: var(--accent-light); color: var(--accent); font-weight: 600;
+    }
+
+    /* ─── SECTIONS SHARED ─── */
+    section { padding: 100px 40px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-eyebrow {
+      display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1.4px;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(26px, 3.5vw, 40px); font-weight: 900;
+      color: var(--text-dark); letter-spacing: -1px; line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 16px; color: var(--text-mid); max-width: 560px; line-height: 1.7;
+    }
+    .section-header { margin-bottom: 60px; }
+
+    /* ─── BENEFITS ─── */
+    #beneficios { background: var(--bg-light); }
+    .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .benefit-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 36px 30px; border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.3s, transform 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .benefit-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), #4f8ef7);
+    }
+    .benefit-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .benefit-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: var(--accent-light); display: flex; align-items: center; justify-content: center;
+      margin-bottom: 22px;
+    }
+    .benefit-icon svg { width: 26px; height: 26px; }
+    .benefit-title { font-weight: 700; font-size: 18px; color: var(--text-dark); margin-bottom: 10px; }
+    .benefit-desc { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+    .benefit-tag {
+      display: inline-block; margin-top: 18px;
+      font-size: 11px; font-weight: 600; color: var(--accent);
+      background: var(--accent-light); padding: 4px 12px; border-radius: 20px;
+    }
+
+    /* ─── MODULES ─── */
+    #modulos { background: var(--white); }
+    .modules-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .module-card {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 36px 32px; background: var(--white);
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+    }
+    .module-card:hover {
+      box-shadow: var(--shadow-md); transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+    .module-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+    .module-icon-wrap {
+      width: 54px; height: 54px; flex-shrink: 0; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; font-size: 24px;
+    }
+    .module-title-wrap .module-num {
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      color: var(--text-light); text-transform: uppercase; margin-bottom: 4px;
+    }
+    .module-title-wrap h3 { font-weight: 700; font-size: 18px; color: var(--text-dark); }
+    .module-desc { font-size: 14px; color: var(--text-mid); line-height: 1.7; margin-bottom: 20px; }
+    .module-ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .module-ul li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; color: var(--text-mid); line-height: 1.5;
+    }
+    .module-ul li::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0; margin-top: 7px;
+    }
+    .module-ul li strong { color: var(--text-dark); }
+
+    /* module color themes */
+    .mod-blue .module-icon-wrap { background: var(--accent-light); }
+    .mod-green .module-icon-wrap { background: var(--green-light); }
+    .mod-purple .module-icon-wrap { background: #f0eafe; }
+    .mod-orange .module-icon-wrap { background: #fff3e6; }
+    .mod-teal .module-icon-wrap { background: #e6f7fb; }
+
+    /* ─── WORKFLOW ─── */
+    #flujo { background: var(--bg-light); }
+    .flow-container {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; position: relative;
+    }
+    .flow-container::before {
+      content: '';
+      position: absolute; top: 54px; left: 10%; right: 10%; height: 2px;
+      background: linear-gradient(90deg, var(--accent), #4f8ef7, var(--accent));
+      z-index: 0;
+    }
+    .flow-step { text-align: center; padding: 0 16px; position: relative; z-index: 1; }
+    .flow-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+      font-size: 28px; position: relative;
+    }
+    .flow-icon::after {
+      content: '';
+      position: absolute; inset: -4px; border-radius: 50%;
+      border: 2px solid var(--border);
+    }
+    .flow-step-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 800; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+    }
+    .flow-step-title { font-weight: 700; font-size: 16px; color: var(--text-dark); margin-bottom: 8px; }
+    .flow-step-desc { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+    .flow-step-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 12px; }
+    .flow-tag {
+      font-size: 11px; font-weight: 600; padding: 3px 10px;
+      border-radius: 20px; background: var(--accent-light); color: var(--accent);
+    }
+
+    /* ─── SCREENS PREVIEW ─── */
+    #vistas { background: var(--white); }
+    .screens-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .screen-card {
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow-md); border: 1px solid var(--border);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .screen-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .screen-bar {
+      background: #1e2433; padding: 10px 14px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .screen-bar .mockup-dot.r { background: #ff5f57; }
+    .screen-bar .mockup-dot.y { background: #febc2e; }
+    .screen-bar .mockup-dot.g { background: #28c840; }
+    .screen-bar-title {
+      flex: 1; text-align: center; font-size: 11px;
+      color: #8892a4; font-weight: 500;
+    }
+    .screen-body { background: var(--bg-light); padding: 20px; min-height: 220px; }
+
+    /* Screen 1: Dashboard */
+    .scr-dash-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;
+    }
+    .scr-welcome { font-size: 11px; color: var(--text-light); }
+    .scr-welcome strong { display: block; font-size: 14px; font-weight: 700; color: var(--text-dark); }
+    .scr-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 13px; }
+    .scr-kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+    .scr-kpi {
+      background: var(--white); border-radius: 8px; padding: 10px;
+      border: 1px solid var(--border); text-align: center;
+    }
+    .scr-kpi-n { font-size: 20px; font-weight: 800; font-family: 'Montserrat', sans-serif; color: var(--accent); }
+    .scr-kpi-l { font-size: 9px; color: var(--text-light); margin-top: 2px; }
+    .scr-progress-label { font-size: 10px; font-weight: 600; color: var(--text-mid); margin-bottom: 4px; }
+    .scr-progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 8px; }
+    .scr-progress-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), #4f8ef7); }
+
+    /* Screen 2: Player Profile */
+    .scr-profile-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .scr-profile-avatar { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: #fff; flex-shrink: 0; }
+    .scr-profile-name { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+    .scr-profile-pos { font-size: 10px; color: var(--text-light); }
+    .scr-profile-badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: var(--green-light); color: var(--green); margin-top: 3px; }
+    .scr-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
+    .scr-metric { background: var(--white); border-radius: 8px; padding: 8px 10px; border: 1px solid var(--border); }
+    .scr-metric-val { font-size: 16px; font-weight: 800; color: var(--text-dark); font-family: 'Montserrat', sans-serif; }
+    .scr-metric-label { font-size: 9px; color: var(--text-light); }
+    .scr-radar-fake {
+      background: var(--white); border-radius: 8px; border: 1px solid var(--border);
+      padding: 10px; text-align: center;
+    }
+    .radar-svg { width: 100%; height: 80px; }
+
+    /* Screen 3: Tasks */
+    .scr-task-title { font-size: 13px; font-weight: 700; color: var(--text-dark); margin-bottom: 12px; }
+    .scr-task {
+      display: flex; align-items: flex-start; gap: 8px;
+      background: var(--white); border-radius: 8px; padding: 10px;
+      border: 1px solid var(--border); margin-bottom: 8px;
+    }
+    .scr-task-check { width: 18px; height: 18px; border-radius: 5px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff; margin-top: 1px; }
+    .scr-task-check.done { background: var(--green); }
+    .scr-task-check.pend { background: var(--accent); }
+    .scr-task-check.wait { background: var(--border); }
+    .scr-task-name { font-size: 11px; font-weight: 600; color: var(--text-dark); }
+    .scr-task-meta { font-size: 10px; color: var(--text-light); }
+    .scr-task-badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; margin-left: auto; flex-shrink: 0; }
+    .scr-task-badge.verde { background: var(--green-light); color: var(--green); }
+    .scr-task-badge.azul { background: var(--accent-light); color: var(--accent); }
+    .scr-task-badge.gris { background: var(--bg-section); color: var(--text-light); }
+
+    .screen-caption {
+      padding: 14px 20px;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+    .screen-caption-title { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+    .screen-caption-desc { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+
+    /* ─── TECH STACK ─── */
+    #tecnologia { background: #111318; }
+    .tech-title { color: var(--white); margin-bottom: 10px; }
+    .tech-sub { color: #8892a4; max-width: 520px; }
+    .tech-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; }
+    .tech-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius); padding: 24px 20px; text-align: center;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .tech-card:hover {
+      background: rgba(26,86,219,0.15); border-color: rgba(26,86,219,0.5);
+    }
+    .tech-card-icon { font-size: 32px; margin-bottom: 12px; }
+    .tech-card-name { font-weight: 700; font-size: 15px; color: var(--white); margin-bottom: 6px; }
+    .tech-card-desc { font-size: 12px; color: #8892a4; line-height: 1.5; }
+    .tech-eyebrow { color: #4f8ef7; }
+
+    /* ─── CTA / FOOTER ─── */
+    footer {
+      background: var(--white); border-top: 1px solid var(--border);
+      padding: 100px 40px 60px;
+    }
+    .footer-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+    .footer-tag {
+      display: inline-block; font-size: 12px; font-weight: 600;
+      color: var(--accent); background: var(--accent-light);
+      padding: 6px 16px; border-radius: 20px; margin-bottom: 28px;
+      letter-spacing: 0.5px;
+    }
+    .footer-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(30px, 4vw, 50px); font-weight: 900;
+      color: var(--text-dark); letter-spacing: -1.5px; line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    .footer-sub {
+      font-size: 16px; color: var(--text-mid); line-height: 1.7; margin-bottom: 40px;
+    }
+    .footer-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent); color: #fff;
+      padding: 16px 36px; border-radius: var(--radius-sm);
+      font-size: 16px; font-weight: 700; text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 6px 20px rgba(26,86,219,0.4);
+    }
+    .btn-cta:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(26,86,219,0.45); }
+    .footer-meta {
+      margin-top: 70px; padding-top: 30px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: gap;
+      font-size: 12px; color: var(--text-light);
+    }
+    .footer-brand { font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--text-dark); font-size: 14px; }
+    .footer-brand span { color: var(--accent); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .benefits-grid { grid-template-columns: 1fr 1fr; }
+      .modules-grid { grid-template-columns: 1fr; }
+      .tech-grid { grid-template-columns: repeat(2, 1fr); }
+      .screens-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      section { padding: 70px 20px; }
+      .hero { padding: 90px 20px 60px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero::before { display: none; }
+      .hero-visual { display: none; }
+      .hero-stats { grid-template-columns: repeat(3, 1fr); }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .flow-container { grid-template-columns: 1fr 1fr; gap: 24px; }
+      .flow-container::before { display: none; }
+      .tech-grid { grid-template-columns: 1fr 1fr; }
+      footer { padding: 70px 20px 40px; }
+      .footer-meta { flex-direction: column; gap: 8px; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .flow-container { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .tech-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-dot"></div>
+    Ecosistema Deportivo <span>Integral</span>
+  </div>
+  <div class="nav-badge">Propuesta Técnica · 2025</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Propuesta de Desarrollo a Medida
+      </div>
+      <h1 class="hero-title">
+        Ecosistema<br/>
+        Deportivo<br/>
+        <span>Integral</span>
+      </h1>
+      <p class="hero-sub">
+        Un sistema propio diseñado exclusivamente para tu academia. Centraliza, administra y potencia el rendimiento de cada jugador — todo desde una sola plataforma que te pertenece.
+      </p>
+      <div class="hero-actions">
+        <a href="#modulos" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+          Ver la estructura del sistema
+        </a>
+        <a href="#flujo" class="btn-ghost">¿Cómo funciona?</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">5</span>
+          <div class="stat-label">Módulos integrados</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">4</span>
+          <div class="stat-label">Roles de usuario</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">∞</span>
+          <div class="stat-label">Jugadores activos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero visual mockup -->
+    <div class="hero-visual">
+      <div class="mockup-shell">
+        <div class="mockup-bar">
+          <div class="mockup-dot r"></div>
+          <div class="mockup-dot y"></div>
+          <div class="mockup-dot g"></div>
+          <div class="mockup-url">app.ecosistema-deportivo.com/dashboard</div>
+        </div>
+        <div class="mockup-body">
+          <div class="dash-header-row">
+            <div class="dash-title-mock">Panel General · Temporada 2025</div>
+            <div class="dash-pill">● En Vivo</div>
+          </div>
+          <div class="dash-grid">
+            <div class="dash-card-mini">
+              <div class="val">24</div>
+              <div class="lbl">Jugadores activos</div>
+              <div class="chg">↑ +3 este mes</div>
+            </div>
+            <div class="dash-card-mini">
+              <div class="val">6</div>
+              <div class="lbl">Tareas pendientes</div>
+              <div class="chg">↑ 2 vencen hoy</div>
+            </div>
+            <div class="dash-card-mini">
+              <div class="val">91%</div>
+              <div class="lbl">Pagos al día</div>
+              <div class="chg" style="color: var(--green);">↑ Excelente</div>
+            </div>
+          </div>
+          <div class="dash-player-row">
+            <div class="dash-avatar" style="background:#1a56db;">JM</div>
+            <div class="dash-player-info">
+              <div class="dash-player-name">Juan Martínez</div>
+              <div class="dash-player-pos">Mediocampista · Sub-17</div>
+            </div>
+            <div style="width:90px;">
+              <div class="dash-bar-wrap">
+                <div class="dash-bar-bg"><div class="dash-bar-fill" style="width:82%;background:var(--accent);"></div></div>
+                <div class="dash-bar-pct">82</div>
+              </div>
+            </div>
+          </div>
+          <div class="dash-player-row">
+            <div class="dash-avatar" style="background:#0d7f5f;">LG</div>
+            <div class="dash-player-info">
+              <div class="dash-player-name">Luis García</div>
+              <div class="dash-player-pos">Delantero · Sub-15</div>
+            </div>
+            <div style="width:90px;">
+              <div class="dash-bar-wrap">
+                <div class="dash-bar-bg"><div class="dash-bar-fill" style="width:75%;background:var(--green);"></div></div>
+                <div class="dash-bar-pct">75</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="radar-mini-wrap">
+        <svg class="radar-svg" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="45,10 80,30 80,65 45,80 10,65 10,30" fill="none" stroke="#e3e6ec" stroke-width="1"/>
+          <polygon points="45,20 70,34 70,58 45,68 20,58 20,34" fill="none" stroke="#e3e6ec" stroke-width="1"/>
+          <polygon points="45,30 60,38 60,52 45,58 30,52 30,38" fill="none" stroke="#e3e6ec" stroke-width="1"/>
+          <polygon points="45,14 75,33 72,63 45,76 18,63 15,33" fill="rgba(26,86,219,0.15)" stroke="#1a56db" stroke-width="1.5"/>
+          <circle cx="45" cy="14" r="2.5" fill="#1a56db"/>
+          <circle cx="75" cy="33" r="2.5" fill="#1a56db"/>
+          <circle cx="72" cy="63" r="2.5" fill="#1a56db"/>
+          <circle cx="45" cy="76" r="2.5" fill="#1a56db"/>
+          <circle cx="18" cy="63" r="2.5" fill="#1a56db"/>
+          <circle cx="15" cy="33" r="2.5" fill="#1a56db"/>
+        </svg>
+        <div class="radar-text">
+          <div class="radar-label">Radar de Habilidades</div>
+          <div class="radar-sub">Visualización en tiempo real del desarrollo técnico de cada jugador.</div>
+          <div class="radar-skills">
+            <span class="skill-tag">Velocidad</span>
+            <span class="skill-tag">Técnica</span>
+            <span class="skill-tag">Tácticas</span>
+            <span class="skill-tag">Físico</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN 1: BENEFICIOS -->
+<section id="beneficios">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-eyebrow">¿Por qué este sistema?</span>
+      <h2 class="section-title">Tu academia merece tecnología propia,<br/>no una suscripción genérica.</h2>
+      <p class="section-sub">Las herramientas de terceros no fueron diseñadas para ti. Este sistema sí lo es — desde cero, para tu metodología, tu equipo y tu visión.</p>
+    </div>
+    <div class="benefits-grid">
+
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="benefit-title">Propiedad Total del Sistema</div>
+        <p class="benefit-desc">El código, los datos y la plataforma son exclusivamente tuyos. Sin suscripciones mensuales, sin dependencia de terceros y sin perder el acceso si una empresa cierra. Inviertes una vez y el sistema trabaja para ti para siempre.</p>
+        <span class="benefit-tag">Activo permanente de tu negocio</span>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <div class="benefit-title">Escalabilidad Sin Límites</div>
+        <p class="benefit-desc">Agrega 10 jugadores o 1,000 — el costo no cambia. La arquitectura está construida para crecer contigo. Cuando tu academia expanda sedes o categorías, el sistema simplemente acompaña ese crecimiento sin penalizarte.</p>
+        <span class="benefit-tag">Usuarios ilimitados, costo fijo</span>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8m-4-4v4"/>
+          </svg>
+        </div>
+        <div class="benefit-title">Datos en Tiempo Real</div>
+        <p class="benefit-desc">Construido sobre Node.js con arquitectura de eventos en tiempo real. Las actualizaciones de progreso, pagos o tareas se reflejan instantáneamente en todos los dispositivos. Tu cuerpo técnico y los acudientes ven la misma información al mismo tiempo.</p>
+        <span class="benefit-tag">Arquitectura Node.js + WebSockets</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN 2: MÓDULOS -->
+<section id="modulos">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-eyebrow">Estructura del Sistema</span>
+      <h2 class="section-title">Cinco módulos. Una sola plataforma.<br/>Control total de tu academia.</h2>
+      <p class="section-sub">Cada módulo fue concebido para resolver un problema real de la gestión deportiva. Juntos, forman un ecosistema coherente y poderoso.</p>
+    </div>
+    <div class="modules-grid">
+
+      <!-- Módulo 1 -->
+      <div class="module-card mod-blue">
+        <div class="module-header">
+          <div class="module-icon-wrap">🔐</div>
+          <div class="module-title-wrap">
+            <div class="module-num">Módulo 01</div>
+            <h3>Administración y Roles</h3>
+          </div>
+        </div>
+        <p class="module-desc">El corazón del control de accesos. Cada persona en tu organización accede únicamente a lo que necesita ver, con un sistema de permisos granular y seguro.</p>
+        <ul class="module-ul">
+          <li><strong>Superadministrador:</strong> visibilidad completa, configuración del sistema y gestión de todos los módulos.</li>
+          <li><strong>Cuerpo Técnico:</strong> acceso a fichas de jugadores, asignación de tareas, evaluación táctica y reportes de rendimiento.</li>
+          <li><strong>Jugador:</strong> dashboard personal con tareas asignadas, bienestar diario y progreso individual.</li>
+          <li><strong>Acudiente:</strong> panel de seguimiento del desarrollo del jugador, historial de pagos y comunicaciones.</li>
+          <li>Log de actividad auditado para rastrear cada acción crítica dentro del sistema.</li>
+        </ul>
+      </div>
+
+      <!-- Módulo 2 -->
+      <div class="module-card mod-green">
+        <div class="module-header">
+          <div class="module-icon-wrap">👤</div>
+          <div class="module-title-wrap">
+            <div class="module-num">Módulo 02</div>
+            <h3>Ficha Profesional 360°</h3>
+          </div>
+        </div>
+        <p class="module-desc">El perfil más completo que un jugador en formación puede tener. Un expediente digital que evoluciona con él a lo largo de toda su carrera en la academia.</p>
+        <ul class="module-ul">
+          <li><strong>Perfil integral:</strong> datos personales, posición, categoría, documentos y fotografías oficiales.</li>
+          <li><strong>Línea de tiempo visual:</strong> registro fotográfico de la evolución física y técnica del jugador por periodos.</li>
+          <li><strong>Métricas antropométricas:</strong> talla, peso, envergadura e índice de masa muscular con historial y gráficas comparativas.</li>
+          <li><strong>Historial médico:</strong> lesiones, recuperaciones, restricciones físicas y autorizaciones médicas adjuntas.</li>
+          <li>Exportación de perfil en PDF para presentaciones, convocatorias o vitrina deportiva.</li>
+        </ul>
+      </div>
+
+      <!-- Módulo 3 -->
+      <div class="module-card mod-purple">
+        <div class="module-header">
+          <div class="module-icon-wrap">📊</div>
+          <div class="module-title-wrap">
+            <div class="module-num">Módulo 03</div>
+            <h3>Analítica de Rendimiento</h3>
+          </div>
+        </div>
+        <p class="module-desc">Convierte las observaciones del campo en datos accionables. Toma decisiones técnicas con base en evidencia visual y estadística, no solo en intuición.</p>
+        <ul class="module-ul">
+          <li><strong>Gráfico de radar de habilidades:</strong> velocidad, técnica, toma de decisiones, trabajo en equipo y condición física visualizados en un único gráfico.</li>
+          <li><strong>Estadísticas de partidos:</strong> goles, asistencias, minutos jugados, precisión de pase y más, por partido y por temporada.</li>
+          <li><strong>Matriz comparativa:</strong> analiza múltiples jugadores lado a lado para detectar brechas y potencial diferencial.</li>
+          <li>Tendencias de evolución mensual y por macrociclo de entrenamiento.</li>
+          <li>Reportes automáticos exportables para presentar al cuerpo directivo o a los acudientes.</li>
+        </ul>
+      </div>
+
+      <!-- Módulo 4 -->
+      <div class="module-card mod-orange">
+        <div class="module-header">
+          <div class="module-icon-wrap">🎯</div>
+          <div class="module-title-wrap">
+            <div class="module-num">Módulo 04</div>
+            <h3>Módulo Táctico y de Tareas</h3>
+          </div>
+        </div>
+        <p class="module-desc">La extensión digital de tu metodología de entrenamiento. El trabajo no termina cuando el jugador sale del campo — este módulo lo acompaña a casa.</p>
+        <ul class="module-ul">
+          <li><strong>Pizarra táctica virtual:</strong> diagrama formaciones, movimientos y jugadas con herramientas visuales sobre campo vectorial.</li>
+          <li><strong>Asignación de tareas individuales:</strong> envía rutinas, ejercicios o videos directamente al jugador con fecha límite y prioridad.</li>
+          <li><strong>Control de rutinas en casa:</strong> el jugador reporta el cumplimiento de cada tarea con confirmación fechada.</li>
+          <li><strong>Cuestionario de bienestar (Wellness):</strong> encuesta diaria sobre sueño, carga emocional, dolor y energía para prevenir lesiones.</li>
+          <li>Alertas automáticas al instructor cuando un jugador reporta señales de fatiga o malestar.</li>
+        </ul>
+      </div>
+
+      <!-- Módulo 5 -->
+      <div class="module-card mod-teal" style="grid-column: 1 / -1;">
+        <div class="module-header">
+          <div class="module-icon-wrap">💼</div>
+          <div class="module-title-wrap">
+            <div class="module-num">Módulo 05</div>
+            <h3>Gestión Financiera y Logística</h3>
+          </div>
+        </div>
+        <p class="module-desc">Administra el negocio detrás de la academia con la misma precisión con la que diriges el juego. Finanzas, inventario y logística en un solo lugar.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 40px;">
+          <ul class="module-ul">
+            <li><strong>Control de mensualidades:</strong> estado de cuenta por jugador, alertas de mora, historial de pagos y comprobantes digitales.</li>
+            <li><strong>Recibos y facturación básica:</strong> generación automática de comprobantes de pago enviados al acudiente.</li>
+            <li>Reporte financiero mensual con ingresos, pendientes y proyección.</li>
+          </ul>
+          <ul class="module-ul">
+            <li><strong>Inventario de dotación:</strong> registro fotográfico de uniformes, balones, implementos y su estado de conservación por jugador.</li>
+            <li><strong>Planificación de torneos y viajes:</strong> fechas, convocatorias, logística y listas de viaje organizadas y compartidas con los acudientes.</li>
+            <li>Notificaciones push y por correo para recordatorios de pagos y eventos importantes.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN VISTAS DEL SISTEMA -->
+<section id="vistas">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-eyebrow">Vistas del Sistema</span>
+      <h2 class="section-title">Así se verá tu plataforma.</h2>
+      <p class="section-sub">Interfaces limpias, intuitivas y diseñadas para ser usadas tanto en escritorio como en dispositivos móviles.</p>
+    </div>
+    <div class="screens-grid">
+
+      <!-- Vista 1: Dashboard -->
+      <div class="screen-card">
+        <div class="screen-bar">
+          <div class="mockup-dot r"></div>
+          <div class="mockup-dot y"></div>
+          <div class="mockup-dot g"></div>
+          <div class="screen-bar-title">Dashboard · Administrador</div>
+        </div>
+        <div class="screen-body">
+          <div class="scr-dash-header">
+            <div class="scr-welcome">
+              <span>Buenas tardes,</span>
+              <strong>Director Técnico</strong>
+            </div>
+            <div class="scr-avatar">DT</div>
+          </div>
+          <div class="scr-kpi-row">
+            <div class="scr-kpi"><div class="scr-kpi-n">24</div><div class="scr-kpi-l">Jugadores</div></div>
+            <div class="scr-kpi"><div class="scr-kpi-n" style="color:var(--green);">91%</div><div class="scr-kpi-l">Pagos</div></div>
+            <div class="scr-kpi"><div class="scr-kpi-n" style="color:#f59e0b;">6</div><div class="scr-kpi-l">Tareas</div></div>
+          </div>
+          <div class="scr-progress-label">Cumplimiento de rutinas — Semana actual</div>
+          <div class="scr-progress-bar"><div class="scr-progress-fill" style="width:78%;"></div></div>
+          <div class="scr-progress-label">Pagos al corriente</div>
+          <div class="scr-progress-bar"><div class="scr-progress-fill" style="width:91%;background:linear-gradient(90deg,var(--green),#20c997);"></div></div>
+          <div class="scr-progress-label">Bienestar promedio del equipo</div>
+          <div class="scr-progress-bar"><div class="scr-progress-fill" style="width:84%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);"></div></div>
+        </div>
+        <div class="screen-caption">
+          <div class="screen-caption-title">Panel de Control General</div>
+          <div class="screen-caption-desc">Vista ejecutiva para el administrador con KPIs en tiempo real.</div>
+        </div>
+      </div>
+
+      <!-- Vista 2: Perfil del jugador -->
+      <div class="screen-card">
+        <div class="screen-bar">
+          <div class="mockup-dot r"></div>
+          <div class="mockup-dot y"></div>
+          <div class="mockup-dot g"></div>
+          <div class="screen-bar-title">Ficha 360° · Jugador</div>
+        </div>
+        <div class="screen-body">
+          <div class="scr-profile-header">
+            <div class="scr-profile-avatar" style="background:var(--accent);">JM</div>
+            <div>
+              <div class="scr-profile-name">Juan Martínez</div>
+              <div class="scr-profile-pos">Mediocampista central · Sub-17</div>
+              <div class="scr-profile-badge">● Activo</div>
+            </div>
+          </div>
+          <div class="scr-metrics">
+            <div class="scr-metric"><div class="scr-metric-val">1.72m</div><div class="scr-metric-label">Estatura</div></div>
+            <div class="scr-metric"><div class="scr-metric-val">65kg</div><div class="scr-metric-label">Peso</div></div>
+            <div class="scr-metric"><div class="scr-metric-val">17</div><div class="scr-metric-label">Edad</div></div>
+            <div class="scr-metric"><div class="scr-metric-val">14</div><div class="scr-metric-label">Partidos</div></div>
+          </div>
+          <div class="scr-radar-fake">
+            <svg class="radar-svg" viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="60,8 105,30 105,68 60,82 15,68 15,30" fill="none" stroke="#e3e6ec" stroke-width="1"/>
+              <polygon points="60,20 90,36 90,60 60,70 30,60 30,36" fill="none" stroke="#e3e6ec" stroke-width="1"/>
+              <polygon points="60,32 75,42 75,52 60,58 45,52 45,42" fill="none" stroke="#e3e6ec" stroke-width="1"/>
+              <polygon points="60,12 100,33 98,65 60,78 22,65 20,33" fill="rgba(26,86,219,0.15)" stroke="#1a56db" stroke-width="1.5"/>
+              <text x="60" y="5" text-anchor="middle" font-size="7" fill="#4a5260">Velocidad</text>
+              <text x="110" y="30" text-anchor="start" font-size="7" fill="#4a5260">Técnica</text>
+              <text x="110" y="70" text-anchor="start" font-size="7" fill="#4a5260">Táctica</text>
+              <text x="60" y="88" text-anchor="middle" font-size="7" fill="#4a5260">Físico</text>
+              <text x="5" y="70" text-anchor="start" font-size="7" fill="#4a5260">Mental</text>
+              <text x="5" y="30" text-anchor="start" font-size="7" fill="#4a5260">Juego</text>
+            </svg>
+          </div>
+        </div>
+        <div class="screen-caption">
+          <div class="screen-caption-title">Ficha Profesional 360°</div>
+          <div class="screen-caption-desc">Perfil completo con métricas, radar de habilidades e historial.</div>
+        </div>
+      </div>
+
+      <!-- Vista 3: Tareas -->
+      <div class="screen-card">
+        <div class="screen-bar">
+          <div class="mockup-dot r"></div>
+          <div class="mockup-dot y"></div>
+          <div class="mockup-dot g"></div>
+          <div class="screen-bar-title">Módulo de Tareas · Instructor</div>
+        </div>
+        <div class="screen-body">
+          <div class="scr-task-title">Tareas asignadas esta semana</div>
+          <div class="scr-task">
+            <div class="scr-task-check done">✓</div>
+            <div style="flex:1">
+              <div class="scr-task-name">Rutina de velocidad — Estadio</div>
+              <div class="scr-task-meta">Juan M. · Vence: hoy · 🎥 Video adjunto</div>
+            </div>
+            <div class="scr-task-badge verde">Completada</div>
+          </div>
+          <div class="scr-task">
+            <div class="scr-task-check pend">→</div>
+            <div style="flex:1">
+              <div class="scr-task-name">Control de balón — Ejercicio #4</div>
+              <div class="scr-task-meta">Luis G. · Vence: mañana · 🎥 Video adjunto</div>
+            </div>
+            <div class="scr-task-badge azul">En curso</div>
+          </div>
+          <div class="scr-task">
+            <div class="scr-task-check wait"></div>
+            <div style="flex:1">
+              <div class="scr-task-name">Cuestionario de bienestar</div>
+              <div class="scr-task-meta">Equipo Sub-17 · Vence: viernes</div>
+            </div>
+            <div class="scr-task-badge gris">Pendiente</div>
+          </div>
+          <div class="scr-task">
+            <div class="scr-task-check done">✓</div>
+            <div style="flex:1">
+              <div class="scr-task-name">Resistencia aeróbica 30min</div>
+              <div class="scr-task-meta">Carlos P. · Completada ayer</div>
+            </div>
+            <div class="scr-task-badge verde">Completada</div>
+          </div>
+        </div>
+        <div class="screen-caption">
+          <div class="screen-caption-title">Gestión de Tareas y Rutinas</div>
+          <div class="screen-caption-desc">Seguimiento en tiempo real del cumplimiento de cada jugador.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN 3: FLUJO -->
+<section id="flujo">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-eyebrow">Flujo de Trabajo</span>
+      <h2 class="section-title">Todos conectados.<br/>Cada uno en su rol.</h2>
+      <p class="section-sub">El sistema facilita una comunicación fluida y estructurada entre cada actor de tu academia, eliminando el caos de WhatsApp, hojas de cálculo y papeles sueltos.</p>
+    </div>
+    <div class="flow-container">
+
+      <div class="flow-step">
+        <div class="flow-icon" style="background:#e8effe;">🏛️</div>
+        <div class="flow-step-num">Paso 01</div>
+        <div class="flow-step-title">El Admin Gestiona</div>
+        <p class="flow-step-desc">Configura jugadores, categorías, permisos y mantiene el control financiero y logístico de toda la academia.</p>
+        <div class="flow-step-tags">
+          <span class="flow-tag">Finanzas</span>
+          <span class="flow-tag">Usuarios</span>
+          <span class="flow-tag">Torneos</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-icon" style="background:#e6f5f0;">🎯</div>
+        <div class="flow-step-num">Paso 02</div>
+        <div class="flow-step-title">El Instructor Dirige</div>
+        <p class="flow-step-desc">Evalúa el rendimiento, asigna tareas individualizadas, diseña tácticas y monitorea el bienestar del plantel.</p>
+        <div class="flow-step-tags">
+          <span class="flow-tag">Evaluaciones</span>
+          <span class="flow-tag">Tareas</span>
+          <span class="flow-tag">Táctica</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-icon" style="background:#fff3e6;">⚽</div>
+        <div class="flow-step-num">Paso 03</div>
+        <div class="flow-step-title">El Jugador Reporta</div>
+        <p class="flow-step-desc">Accede a sus tareas, confirma el cumplimiento de rutinas, responde el cuestionario de bienestar y ve su propio progreso.</p>
+        <div class="flow-step-tags">
+          <span class="flow-tag">Rutinas</span>
+          <span class="flow-tag">Wellness</span>
+          <span class="flow-tag">Progreso</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-icon" style="background:#f0eafe;">👨‍👩‍👦</div>
+        <div class="flow-step-num">Paso 04</div>
+        <div class="flow-step-title">El Acudiente Observa</div>
+        <p class="flow-step-desc">Consulta el desarrollo de su hijo, revisa el estado de cuenta, recibe notificaciones importantes y mantiene contacto con la academia.</p>
+        <div class="flow-step-tags">
+          <span class="flow-tag">Seguimiento</span>
+          <span class="flow-tag">Pagos</span>
+          <span class="flow-tag">Alertas</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TECNOLOGÍA -->
+<section id="tecnologia">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-eyebrow tech-eyebrow">Stack Tecnológico</span>
+      <h2 class="section-title tech-title">Construido sobre bases sólidas<br/>y tecnología de nivel enterprise.</h2>
+      <p class="section-sub tech-sub">Cada decisión tecnológica fue tomada pensando en estabilidad, seguridad y la capacidad de escalar sin límites cuando tu academia crezca.</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tech-card-icon">⚛️</div>
+        <div class="tech-card-name">React / Next.js</div>
+        <div class="tech-card-desc">Interfaz de usuario rápida, reactiva y con renderizado optimizado para cualquier dispositivo.</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card-icon">🟩</div>
+        <div class="tech-card-name">Node.js + Express</div>
+        <div class="tech-card-desc">Backend asíncrono de alta performance con arquitectura de eventos en tiempo real vía WebSockets.</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card-icon">🗄️</div>
+        <div class="tech-card-name">PostgreSQL</div>
+        <div class="tech-card-desc">Base de datos relacional robusta para garantizar integridad y consistencia de los datos deportivos y financieros.</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card-icon">☁️</div>
+        <div class="tech-card-name">Cloud Hosting</div>
+        <div class="tech-card-desc">Despliegue en infraestructura cloud con respaldos automáticos, uptime garantizado y acceso global seguro.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER / CTA -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-tag">✦ Propuesta lista para tu revisión</div>
+    <h2 class="footer-title">¿Listo para llevar tu academia<br/>al siguiente nivel?</h2>
+    <p class="footer-sub">Este sistema no es un gasto operativo — es la infraestructura digital que va a diferenciar tu academia de todas las demás. Una inversión que crece contigo y trabaja todos los días.</p>
+    <div class="footer-actions">
+      <a href="mailto:tucorreo@ejemplo.com" class="btn-cta">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Aprobar Proyecto
+      </a>
+      <a href="mailto:tucorreo@ejemplo.com" class="btn-ghost">Solicitar reunión →</a>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:0 0;">
+    <div class="footer-meta">
+      <div class="footer-brand">Ecosistema <span>Deportivo</span> Integral</div>
+      <div>Propuesta técnica confidencial · 2025</div>
+      <div>Desarrollado a la medida de tu academia</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
