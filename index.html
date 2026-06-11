@@ -28,6 +28,10 @@
       --shadow-lg: 0 20px 50px rgba(0,0,0,0.12);
       --radius: 14px;
       --radius-sm: 8px;
+      --psych: #7c3aed;
+      --psych-light: #f3eeff;
+      --med: #0e7490;
+      --med-light: #e0f5fa;
     }
 
     html { scroll-behavior: smooth; }
@@ -309,6 +313,14 @@
     .mod-purple .module-icon-wrap { background: #f0eafe; }
     .mod-orange .module-icon-wrap { background: #fff3e6; }
     .mod-teal .module-icon-wrap { background: #e6f7fb; }
+    .mod-psych .module-icon-wrap { background: var(--psych-light); }
+    .mod-psych:hover { border-color: var(--psych); }
+    .mod-psych::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--psych), #a855f7); border-radius: var(--radius) var(--radius) 0 0; }
+    .mod-psych .module-ul li::before { background: var(--psych); }
+    .mod-med .module-icon-wrap { background: var(--med-light); }
+    .mod-med:hover { border-color: var(--med); }
+    .mod-med::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--med), #22d3ee); border-radius: var(--radius) var(--radius) 0 0; }
+    .mod-med .module-ul li::before { background: var(--med); }
 
     /* ─── WORKFLOW ─── */
     #flujo { background: var(--bg-light); }
@@ -490,7 +502,8 @@
       .benefits-grid { grid-template-columns: 1fr 1fr; }
       .modules-grid { grid-template-columns: 1fr; }
       .tech-grid { grid-template-columns: repeat(2, 1fr); }
-      .screens-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .screens-grid { grid-template-columns: 1fr 1fr; max-width: 100%; margin: 0 auto; }
+      #roles-especializados .roles-hero-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 768px) {
       nav { padding: 0 20px; }
@@ -506,6 +519,8 @@
       .tech-grid { grid-template-columns: 1fr 1fr; }
       footer { padding: 70px 20px 40px; }
       .footer-meta { flex-direction: column; gap: 8px; text-align: center; }
+      .screens-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      #roles-especializados > .section-inner > div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
     }
     @media (max-width: 480px) {
       .flow-container { grid-template-columns: 1fr; }
@@ -550,11 +565,11 @@
       </div>
       <div class="hero-stats">
         <div class="stat-item">
-          <span class="stat-num">5</span>
+          <span class="stat-num">7</span>
           <div class="stat-label">Módulos integrados</div>
         </div>
         <div class="stat-item">
-          <span class="stat-num">4</span>
+          <span class="stat-num">6</span>
           <div class="stat-label">Roles de usuario</div>
         </div>
         <div class="stat-item">
@@ -703,7 +718,7 @@
   <div class="section-inner">
     <div class="section-header">
       <span class="section-eyebrow">Estructura del Sistema</span>
-      <h2 class="section-title">Cinco módulos. Una sola plataforma.<br/>Control total de tu academia.</h2>
+      <h2 class="section-title">Siete módulos. Una sola plataforma.<br/>Control total de tu academia.</h2>
       <p class="section-sub">Cada módulo fue concebido para resolver un problema real de la gestión deportiva. Juntos, forman un ecosistema coherente y poderoso.</p>
     </div>
     <div class="modules-grid">
@@ -717,10 +732,12 @@
             <h3>Administración y Roles</h3>
           </div>
         </div>
-        <p class="module-desc">El corazón del control de accesos. Cada persona en tu organización accede únicamente a lo que necesita ver, con un sistema de permisos granular y seguro.</p>
+        <p class="module-desc">El corazón del control de accesos. Seis perfiles distintos con permisos granulares — cada persona accede únicamente a lo que necesita ver, con trazabilidad completa de cada acción.</p>
         <ul class="module-ul">
           <li><strong>Superadministrador:</strong> visibilidad completa, configuración del sistema y gestión de todos los módulos.</li>
           <li><strong>Cuerpo Técnico:</strong> acceso a fichas de jugadores, asignación de tareas, evaluación táctica y reportes de rendimiento.</li>
+          <li><strong>Psicólogo Deportivo:</strong> módulo exclusivo de salud mental, evaluaciones psicológicas, sesiones, seguimiento emocional e intervenciones.</li>
+          <li><strong>Médico Deportivo:</strong> historia clínica completa, gestión de lesiones, rehabilitaciones, autorizaciones médicas y control de aptitud física.</li>
           <li><strong>Jugador:</strong> dashboard personal con tareas asignadas, bienestar diario y progreso individual.</li>
           <li><strong>Acudiente:</strong> panel de seguimiento del desarrollo del jugador, historial de pagos y comunicaciones.</li>
           <li>Log de actividad auditado para rastrear cada acción crítica dentro del sistema.</li>
@@ -812,7 +829,132 @@
   </div>
 </section>
 
-<!-- SECCIÓN VISTAS DEL SISTEMA -->
+<!-- SECCIÓN: ROLES ESPECIALIZADOS -->
+<section id="roles-especializados" style="background:var(--bg-light);">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-eyebrow">Roles Especializados</span>
+      <h2 class="section-title">Psicólogo y Médico Deportivo.<br/>Ahora dentro del sistema.</h2>
+      <p class="section-sub">El desarrollo de un jugador va mucho más allá del campo. Por eso el sistema integra dos roles altamente especializados que protegen al jugador desde adentro — su mente y su cuerpo.</p>
+    </div>
+
+    <!-- ROLES HERO CARDS -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:60px;">
+
+      <!-- Psicólogo Card -->
+      <div style="background:var(--white);border-radius:var(--radius);border:1.5px solid var(--psych-light);padding:40px 36px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--psych),#a855f7);"></div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+          <div style="width:64px;height:64px;border-radius:16px;background:var(--psych-light);display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0;">🧠</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--psych);margin-bottom:4px;">Rol Especializado</div>
+            <h3 style="font-size:22px;font-weight:800;color:var(--text-dark);letter-spacing:-0.5px;">Psicólogo Deportivo</h3>
+          </div>
+        </div>
+        <p style="font-size:14px;color:var(--text-mid);line-height:1.7;margin-bottom:20px;">Un jugador mentalmente fuerte supera la presión, se recupera de errores y rinde en el momento decisivo. Este módulo le da al psicólogo las herramientas digitales para acompañar ese proceso con estructura, privacidad y evidencia.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--psych-light);border-radius:10px;padding:14px;">
+            <div style="font-size:11px;font-weight:700;color:var(--psych);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Evaluación</div>
+            <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">Test de ansiedad competitiva, resiliencia, motivación y cohesión grupal aplicados digitalmente.</div>
+          </div>
+          <div style="background:var(--psych-light);border-radius:10px;padding:14px;">
+            <div style="font-size:11px;font-weight:700;color:var(--psych);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Sesiones</div>
+            <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">Registro de sesiones individuales y grupales con notas clínicas, fecha y objetivos trabajados.</div>
+          </div>
+          <div style="background:var(--psych-light);border-radius:10px;padding:14px;">
+            <div style="font-size:11px;font-weight:700;color:var(--psych);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Seguimiento</div>
+            <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">Evolución emocional del jugador por semana: humor, motivación, estrés y autoconfianza.</div>
+          </div>
+          <div style="background:var(--psych-light);border-radius:10px;padding:14px;">
+            <div style="font-size:11px;font-weight:700;color:var(--psych);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Alertas</div>
+            <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">Detección automática de señales de riesgo en los cuestionarios de bienestar completados por el jugador.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Médico Card -->
+      <div style="background:var(--white);border-radius:var(--radius);border:1.5px solid var(--med-light);padding:40px 36px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--med),#22d3ee);"></div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+          <div style="width:64px;height:64px;border-radius:16px;background:var(--med-light);display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0;">🩺</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--med);margin-bottom:4px;">Rol Especializado</div>
+            <h3 style="font-size:22px;font-weight:800;color:var(--text-dark);letter-spacing:-0.5px;">Médico Deportivo</h3>
+          </div>
+        </div>
+        <p style="font-size:14px;color:var(--text-mid);line-height:1.7;margin-bottom:20px;">Prevenir es mejor que curar. El módulo médico convierte el historial de salud de cada jugador en un activo estratégico que protege su carrera, informa al cuerpo técnico y da tranquilidad a los acudientes.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--med-light);border-radius:10px;padding:14px;">
+            <div style="font-size:11px;font-weight:700;color:var(--med);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Historia Clínica</div>
+            <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">Expediente médico digital completo: antecedentes, alergias, cirugías, vacunas y condiciones crónicas.</div>
+          </div>
+          <div style="background:var(--med-light);border-radius:10px;padding:14px;">
+            <div style="font-size:11px;font-weight:700;color:var(--med);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Lesiones</div>
+            <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">Registro detallado de lesiones: tipo, localización, mecanismo de lesión, tratamiento y tiempo de baja.</div>
+          </div>
+          <div style="background:var(--med-light);border-radius:10px;padding:14px;">
+            <div style="font-size:11px;font-weight:700;color:var(--med);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Rehabilitación</div>
+            <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">Plan de recuperación por fases con hitos de progreso y criterios de retorno al campo.</div>
+          </div>
+          <div style="background:var(--med-light);border-radius:10px;padding:14px;">
+            <div style="font-size:11px;font-weight:700;color:var(--med);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Aptitud Física</div>
+            <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">Certificados de aptitud y restricciones médicas visibles para el instructor antes de cada entrenamiento.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DETALLE DE MÓDULOS EN PROFUNDIDAD -->
+    <div class="modules-grid">
+
+      <!-- Módulo Psicólogo detallado -->
+      <div class="module-card mod-psych" style="position:relative;overflow:hidden;">
+        <div class="module-header">
+          <div class="module-icon-wrap">🧠</div>
+          <div class="module-title-wrap">
+            <div class="module-num">Módulo 06</div>
+            <h3>Módulo de Psicología Deportiva</h3>
+          </div>
+        </div>
+        <p class="module-desc">Un espacio digital seguro, confidencial y estructurado para que el psicólogo gestione el componente mental del rendimiento con la misma rigurosidad que se aplica al componente físico.</p>
+        <ul class="module-ul">
+          <li><strong>Panel exclusivo del psicólogo:</strong> accede únicamente a los datos de salud mental sin cruce con información financiera o táctica.</li>
+          <li><strong>Batería de evaluaciones psicológicas:</strong> test CSAI-2 (ansiedad competitiva), POMS (perfil de estados de ánimo), escala de motivación deportiva y cuestionario de cohesión de equipo.</li>
+          <li><strong>Registro de sesiones clínicas:</strong> notas de sesión con fecha, jugador, objetivos trabajados, técnicas aplicadas y plan de acción para la siguiente sesión.</li>
+          <li><strong>Mapa emocional del jugador:</strong> gráfica semanal de humor, energía, autoconfianza, concentración y relación con compañeros.</li>
+          <li><strong>Programa de mindfulness y metas:</strong> asignación de ejercicios de visualización, respiración, establecimiento de metas y rutinas de activación pre-partido.</li>
+          <li><strong>Integración con Wellness:</strong> recibe automáticamente alertas cuando el cuestionario diario del jugador refleja estrés elevado, ansiedad o desmotivación.</li>
+          <li><strong>Informes de salud mental:</strong> reporte periódico del estado psicológico del plantel para el director técnico (sin datos clínicos confidenciales — solo semáforos de riesgo).</li>
+          <li>Toda la información clínica es estrictamente confidencial y solo visible para el psicólogo y el superadministrador con nivel de acceso autorizado.</li>
+        </ul>
+      </div>
+
+      <!-- Módulo Médico detallado -->
+      <div class="module-card mod-med" style="position:relative;overflow:hidden;">
+        <div class="module-header">
+          <div class="module-icon-wrap">🩺</div>
+          <div class="module-title-wrap">
+            <div class="module-num">Módulo 07</div>
+            <h3>Módulo de Medicina Deportiva</h3>
+          </div>
+        </div>
+        <p class="module-desc">El sistema reemplaza las carpetas físicas, los papeles perdidos y las llamadas de último minuto. Toda la información médica de cada jugador está a un clic, organizada y disponible cuando más se necesita.</p>
+        <ul class="module-ul">
+          <li><strong>Historia clínica digital completa:</strong> antecedentes familiares, enfermedades preexistentes, cirugías, alergias a medicamentos, grupo sanguíneo y vacunas con fechas.</li>
+          <li><strong>Gestión de lesiones:</strong> registro por lesión con localización anatómica (imagen corporal interactiva), tipo de tejido afectado, mecanismo de lesión, diagnóstico y tratamiento prescrito.</li>
+          <li><strong>Protocolo de rehabilitación por fases:</strong> define etapas de recuperación (reposo, movilidad, fuerza, retorno progresivo) con criterios medibles de avance para cada fase.</li>
+          <li><strong>Disponibilidad en tiempo real:</strong> el instructor ve automáticamente qué jugadores están disponibles, en recuperación o con restricciones antes de planificar el entrenamiento.</li>
+          <li><strong>Exámenes médicos y resultados:</strong> adjunta análisis de sangre, resonancias, radiografías y certificados médicos como documentos digitales en el expediente del jugador.</li>
+          <li><strong>Control de carga física:</strong> cruza los datos de carga de entrenamiento con el historial de lesiones para alertar sobre jugadores con riesgo elevado de recaída.</li>
+          <li><strong>Autorizaciones médicas:</strong> emite y almacena autorizaciones de apto físico para torneos, competencias o viajes — con firma digital y acceso para el acudiente.</li>
+          <li>Panel de estadísticas del equipo: número de lesiones por periodo, zona anatómica más afectada, tiempo promedio de recuperación y comparativo entre categorías.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
 <section id="vistas">
   <div class="section-inner">
     <div class="section-header">
@@ -949,6 +1091,149 @@
         </div>
       </div>
 
+      <!-- Vista 4: Psicólogo -->
+      <div class="screen-card">
+        <div class="screen-bar" style="background:#2d1f4e;">
+          <div class="mockup-dot r"></div>
+          <div class="mockup-dot y"></div>
+          <div class="mockup-dot g"></div>
+          <div class="screen-bar-title">Módulo Psicología · Sesiones</div>
+        </div>
+        <div class="screen-body" style="background:#faf8ff;">
+          <div class="scr-dash-header" style="margin-bottom:12px;">
+            <div class="scr-welcome">
+              <span>Panel del</span>
+              <strong>Psicólogo Deportivo</strong>
+            </div>
+            <div class="scr-avatar" style="background:var(--psych);">PS</div>
+          </div>
+          <div style="background:var(--white);border-radius:8px;border:1px solid #e9d5ff;padding:10px;margin-bottom:10px;">
+            <div style="font-size:10px;font-weight:700;color:var(--psych);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Estado Emocional — Sub-17</div>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="font-size:10px;color:var(--text-mid);width:80px;">Motivación</div>
+                <div style="flex:1;height:6px;background:#e9d5ff;border-radius:3px;overflow:hidden;"><div style="width:82%;height:100%;background:var(--psych);border-radius:3px;"></div></div>
+                <div style="font-size:10px;font-weight:600;color:var(--psych);">82%</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="font-size:10px;color:var(--text-mid);width:80px;">Confianza</div>
+                <div style="flex:1;height:6px;background:#e9d5ff;border-radius:3px;overflow:hidden;"><div style="width:74%;height:100%;background:#a855f7;border-radius:3px;"></div></div>
+                <div style="font-size:10px;font-weight:600;color:var(--psych);">74%</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="font-size:10px;color:var(--text-mid);width:80px;">Ansiedad</div>
+                <div style="flex:1;height:6px;background:#e9d5ff;border-radius:3px;overflow:hidden;"><div style="width:28%;height:100%;background:#f59e0b;border-radius:3px;"></div></div>
+                <div style="font-size:10px;font-weight:600;color:#f59e0b;">28%</div>
+              </div>
+            </div>
+          </div>
+          <div class="scr-task" style="border-color:#e9d5ff;">
+            <div class="scr-task-check" style="background:var(--psych);">🧠</div>
+            <div style="flex:1">
+              <div class="scr-task-name">Sesión individual — Juan M.</div>
+              <div class="scr-task-meta">Manejo de presión · Hoy 10:00 AM</div>
+            </div>
+            <div class="scr-task-badge" style="background:var(--psych-light);color:var(--psych);">Completada</div>
+          </div>
+          <div class="scr-task" style="border-color:#e9d5ff;margin-top:6px;">
+            <div class="scr-task-check" style="background:#a855f7;">🎯</div>
+            <div style="flex:1">
+              <div class="scr-task-name">Sesión grupal — Sub-15</div>
+              <div class="scr-task-meta">Cohesión de equipo · Mañana 9:00 AM</div>
+            </div>
+            <div class="scr-task-badge" style="background:var(--psych-light);color:var(--psych);">Programada</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:8px;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:8px;margin-top:8px;">
+            <span style="font-size:14px;">⚠️</span>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:#c2410c;">Alerta Wellness</div>
+              <div style="font-size:10px;color:#92400e;">Luis G. reporta estrés alto — 3 días consecutivos</div>
+            </div>
+          </div>
+        </div>
+        <div class="screen-caption">
+          <div class="screen-caption-title">Panel del Psicólogo Deportivo</div>
+          <div class="screen-caption-desc">Seguimiento emocional, sesiones clínicas y alertas de bienestar mental.</div>
+        </div>
+      </div>
+
+      <!-- Vista 5: Médico -->
+      <div class="screen-card" style="grid-column:2/4;">
+        <div class="screen-bar" style="background:#0c3344;">
+          <div class="mockup-dot r"></div>
+          <div class="mockup-dot y"></div>
+          <div class="mockup-dot g"></div>
+          <div class="screen-bar-title">Módulo Médico · Historia Clínica & Lesiones</div>
+        </div>
+        <div class="screen-body" style="background:#f0faff;display:grid;grid-template-columns:1fr 1fr;gap:14px;min-height:auto;">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+              <div class="scr-profile-avatar" style="background:var(--med);">JM</div>
+              <div>
+                <div class="scr-profile-name">Juan Martínez</div>
+                <div class="scr-profile-pos">Sub-17 · Mediocampista</div>
+                <div class="scr-profile-badge" style="background:var(--med-light);color:var(--med);">● Apto para jugar</div>
+              </div>
+            </div>
+            <div style="background:var(--white);border-radius:8px;border:1px solid #a5f3fc;padding:10px;margin-bottom:8px;">
+              <div style="font-size:10px;font-weight:700;color:var(--med);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Datos Clínicos</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+                <div style="font-size:10px;color:var(--text-mid);">Grupo sanguíneo</div><div style="font-size:10px;font-weight:600;color:var(--text-dark);">O+</div>
+                <div style="font-size:10px;color:var(--text-mid);">Alergias</div><div style="font-size:10px;font-weight:600;color:var(--text-dark);">Ninguna</div>
+                <div style="font-size:10px;color:var(--text-mid);">Condición</div><div style="font-size:10px;font-weight:600;color:var(--text-dark);">Sano</div>
+                <div style="font-size:10px;color:var(--text-mid);">Últ. examen</div><div style="font-size:10px;font-weight:600;color:var(--text-dark);">Mar 2025</div>
+              </div>
+            </div>
+            <div style="background:var(--white);border-radius:8px;border:1px solid #a5f3fc;padding:10px;">
+              <div style="font-size:10px;font-weight:700;color:var(--med);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Disponibilidad del Plantel</div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span style="font-size:10px;color:var(--text-mid);">Disponibles</span>
+                  <span style="font-size:10px;font-weight:700;color:var(--green);background:var(--green-light);padding:2px 8px;border-radius:20px;">21 jugadores</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span style="font-size:10px;color:var(--text-mid);">En recuperación</span>
+                  <span style="font-size:10px;font-weight:700;color:#f59e0b;background:#fff7ed;padding:2px 8px;border-radius:20px;">2 jugadores</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span style="font-size:10px;color:var(--text-mid);">Con restricción</span>
+                  <span style="font-size:10px;font-weight:700;color:#dc2626;background:#fff1f2;padding:2px 8px;border-radius:20px;">1 jugador</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:10px;font-weight:700;color:var(--med);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Historial de Lesiones</div>
+            <div class="scr-task" style="border-color:#a5f3fc;margin-bottom:6px;">
+              <div class="scr-task-check" style="background:var(--green);">✓</div>
+              <div style="flex:1">
+                <div class="scr-task-name">Esguince tobillo derecho</div>
+                <div class="scr-task-meta">Recuperado · Feb 2025 · 18 días de baja</div>
+              </div>
+            </div>
+            <div class="scr-task" style="border-color:#a5f3fc;margin-bottom:8px;">
+              <div class="scr-task-check" style="background:#f59e0b;">!</div>
+              <div style="flex:1">
+                <div class="scr-task-name">Sobrecarga muscular isquiotibial</div>
+                <div class="scr-task-meta">En rehabilitación · Fase 2 de 3</div>
+              </div>
+            </div>
+            <div style="background:var(--white);border-radius:8px;border:1px solid #a5f3fc;padding:10px;">
+              <div style="font-size:10px;font-weight:700;color:var(--med);margin-bottom:6px;">Rehab. Activa — Luis G.</div>
+              <div style="font-size:10px;color:var(--text-mid);margin-bottom:6px;">Sobrecarga · Fase 2: Fortalecimiento</div>
+              <div style="height:6px;background:#a5f3fc;border-radius:3px;overflow:hidden;margin-bottom:4px;">
+                <div style="width:55%;height:100%;background:var(--med);border-radius:3px;"></div>
+              </div>
+              <div style="font-size:10px;color:var(--text-light);">Progreso: 55% · Retorno estimado en 8 días</div>
+            </div>
+          </div>
+        </div>
+        <div class="screen-caption">
+          <div class="screen-caption-title">Panel del Médico Deportivo</div>
+          <div class="screen-caption-desc">Historia clínica digital, lesiones, rehabilitación y disponibilidad en tiempo real.</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -958,54 +1243,72 @@
   <div class="section-inner">
     <div class="section-header">
       <span class="section-eyebrow">Flujo de Trabajo</span>
-      <h2 class="section-title">Todos conectados.<br/>Cada uno en su rol.</h2>
-      <p class="section-sub">El sistema facilita una comunicación fluida y estructurada entre cada actor de tu academia, eliminando el caos de WhatsApp, hojas de cálculo y papeles sueltos.</p>
+      <h2 class="section-title">Seis roles. Un ecosistema.<br/>Todo conectado.</h2>
+      <p class="section-sub">El sistema facilita una comunicación estructurada entre cada actor de tu academia — eliminando el caos de WhatsApp, hojas de cálculo y papeles perdidos.</p>
     </div>
-    <div class="flow-container">
+    <div class="flow-container" style="grid-template-columns:repeat(6,1fr);">
 
       <div class="flow-step">
         <div class="flow-icon" style="background:#e8effe;">🏛️</div>
-        <div class="flow-step-num">Paso 01</div>
-        <div class="flow-step-title">El Admin Gestiona</div>
-        <p class="flow-step-desc">Configura jugadores, categorías, permisos y mantiene el control financiero y logístico de toda la academia.</p>
+        <div class="flow-step-num">Rol 01</div>
+        <div class="flow-step-title">Admin</div>
+        <p class="flow-step-desc">Configura jugadores, permisos, finanzas y logística de toda la academia.</p>
         <div class="flow-step-tags">
           <span class="flow-tag">Finanzas</span>
-          <span class="flow-tag">Usuarios</span>
           <span class="flow-tag">Torneos</span>
         </div>
       </div>
 
       <div class="flow-step">
         <div class="flow-icon" style="background:#e6f5f0;">🎯</div>
-        <div class="flow-step-num">Paso 02</div>
-        <div class="flow-step-title">El Instructor Dirige</div>
-        <p class="flow-step-desc">Evalúa el rendimiento, asigna tareas individualizadas, diseña tácticas y monitorea el bienestar del plantel.</p>
+        <div class="flow-step-num">Rol 02</div>
+        <div class="flow-step-title">Instructor</div>
+        <p class="flow-step-desc">Evalúa rendimiento, asigna tareas y diseña la estrategia táctica del equipo.</p>
         <div class="flow-step-tags">
-          <span class="flow-tag">Evaluaciones</span>
-          <span class="flow-tag">Tareas</span>
           <span class="flow-tag">Táctica</span>
+          <span class="flow-tag">Tareas</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-icon" style="background:var(--psych-light);">🧠</div>
+        <div class="flow-step-num">Rol 03</div>
+        <div class="flow-step-title">Psicólogo</div>
+        <p class="flow-step-desc">Gestiona la salud mental, evalúa estados emocionales e interviene ante señales de riesgo.</p>
+        <div class="flow-step-tags">
+          <span class="flow-tag" style="background:var(--psych-light);color:var(--psych);">Sesiones</span>
+          <span class="flow-tag" style="background:var(--psych-light);color:var(--psych);">Wellness</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-icon" style="background:var(--med-light);">🩺</div>
+        <div class="flow-step-num">Rol 04</div>
+        <div class="flow-step-title">Médico</div>
+        <p class="flow-step-desc">Controla la salud física, gestiona lesiones y certifica la aptitud de cada jugador.</p>
+        <div class="flow-step-tags">
+          <span class="flow-tag" style="background:var(--med-light);color:var(--med);">Lesiones</span>
+          <span class="flow-tag" style="background:var(--med-light);color:var(--med);">Rehab</span>
         </div>
       </div>
 
       <div class="flow-step">
         <div class="flow-icon" style="background:#fff3e6;">⚽</div>
-        <div class="flow-step-num">Paso 03</div>
-        <div class="flow-step-title">El Jugador Reporta</div>
-        <p class="flow-step-desc">Accede a sus tareas, confirma el cumplimiento de rutinas, responde el cuestionario de bienestar y ve su propio progreso.</p>
+        <div class="flow-step-num">Rol 05</div>
+        <div class="flow-step-title">Jugador</div>
+        <p class="flow-step-desc">Consulta sus tareas, reporta rutinas y responde el cuestionario de bienestar diario.</p>
         <div class="flow-step-tags">
           <span class="flow-tag">Rutinas</span>
-          <span class="flow-tag">Wellness</span>
           <span class="flow-tag">Progreso</span>
         </div>
       </div>
 
       <div class="flow-step">
         <div class="flow-icon" style="background:#f0eafe;">👨‍👩‍👦</div>
-        <div class="flow-step-num">Paso 04</div>
-        <div class="flow-step-title">El Acudiente Observa</div>
-        <p class="flow-step-desc">Consulta el desarrollo de su hijo, revisa el estado de cuenta, recibe notificaciones importantes y mantiene contacto con la academia.</p>
+        <div class="flow-step-num">Rol 06</div>
+        <div class="flow-step-title">Acudiente</div>
+        <p class="flow-step-desc">Visualiza el desarrollo integral de su hijo, pagos y comunicaciones importantes.</p>
         <div class="flow-step-tags">
-          <span class="flow-tag">Seguimiento</span>
           <span class="flow-tag">Pagos</span>
           <span class="flow-tag">Alertas</span>
         </div>
